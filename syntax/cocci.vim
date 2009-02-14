@@ -18,6 +18,11 @@ syn match CocciLineRemoved      "^-.*"
 syn match CocciLineAdded        "^+.*"
 syn match CocciComment          "//.*"
 
+syn case ignore
+syn match CocciOperator         "\.\.\."
+syn match CocciOperator         "when"
+syn case match
+
 " Errors
 syn match CocciError            "^[ \t][+-].*"
 
@@ -28,6 +33,7 @@ hi def link CocciError          Error
 hi def link CocciKeywords       Keyword
 hi def link CocciGroupDelim     PreProc
 hi def link CocciComment        Comment
+hi def link CocciOperator       Operator
 
 let b:current_syntax = "cocci"
 
