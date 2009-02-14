@@ -8,6 +8,27 @@ if &compatible || v:version < 603 || exists("b:current_syntax")
     finish
 endif
 
+" Keywords
+syn keyword CocciKeywords       identifier type parameter constant expression contained
+syn keyword CocciKeywords       statement function local list fresh position idexpression contained
+
+syn region CocciGroup matchgroup=CocciGroupDelim start="@[^@]*@" end="@@" contains=CocciKeywords
+
+syn match CocciLineRemoved      "^-.*"
+syn match CocciLineAdded        "^+.*"
+syn match CocciComment          "//.*"
+
+" Errors
+syn match CocciError            "^[ \t][+-].*"
+
+" Highlight!
+hi def link CocciLineRemoved    Special
+hi def link CocciLineAdded      Identifier
+hi def link CocciError          Error
+hi def link CocciKeywords       Keyword
+hi def link CocciGroupDelim     PreProc
+hi def link CocciComment        Comment
+
 let b:current_syntax = "cocci"
 
 " vim: set et ts=4 :
