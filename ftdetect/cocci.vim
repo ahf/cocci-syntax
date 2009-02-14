@@ -8,4 +8,6 @@ if &compatible || v:version < 603
     finish
 endif
 
+au BufNewFile,BufRead *.cocci set filetype=cocci
+
 " vim: set et ts=4 :

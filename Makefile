@@ -11,6 +11,10 @@ clean:
 upload: cocci-syntax-$(DATE).tar.bz2
 	scp $< dev.exherbo.org:public_html/pub/software/releases/cocci-syntax/
 
-.phony: clean upload
+install:
+	cp ftdetect/cocci.vim ~/.vim/ftdetect/
+	cp syntax/cocci.vim ~/.vim/syntax/
+
+.phony: clean upload install
 
 .default: all
