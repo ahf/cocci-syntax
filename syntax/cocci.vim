@@ -21,6 +21,7 @@ syn match CocciComment          "//.*"
 syn case ignore
 syn match CocciOperator         "\.\.\."
 syn match CocciOperator         "when"
+syn match CocciOperator         "any"
 syn case match
 
 " Errors
