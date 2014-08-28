@@ -12,6 +12,8 @@ upload: cocci-syntax-$(DATE).tar.bz2
 	scp $< dev.exherbo.org:public_html/pub/software/releases/cocci-syntax/
 
 install:
+	@mkdir -p ~/.vim/ftdetect/
+	@mkdir -p ~/.vim/syntax/
 	cp ftdetect/cocci.vim ~/.vim/ftdetect/
 	cp syntax/cocci.vim ~/.vim/syntax/
 
