@@ -14,7 +14,9 @@ syn keyword CocciKeywords       statement function local list fresh position ide
 syn keyword CocciKeywords       declaration declarer attribute symbol format assignment contained
 syn keyword CocciKeywords       operator global field initializer initialiser iterator name contained
 
-syn region CocciGroup matchgroup=CocciGroupDelim start="^@[^@:]*@" end="@@" contains=CocciKeywords,CocciComment
+syn region CocciGroup matchgroup=CocciGroupDelim start="^@[^@:]*@" end="@@" contains=CocciKeywords,CocciComment,CocciInlineScript
+
+syn match CocciInlineScript     "script\s*:\s*\(python\|ocaml\)\s*([^)]*)\s*{[^}]*}" contained
 
 syn match CocciLineRemoved      "^-.*"
 syn match CocciLineAdded        "^+.*"
@@ -41,6 +43,7 @@ hi def link CocciKeywords       Type
 hi def link CocciGroupDelim     PreProc
 hi def link CocciComment        Comment
 hi def link CocciOperator       Operator
+hi def link CocciInlineScript   Special
 
 let b:current_syntax = "cocci"
 
