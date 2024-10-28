@@ -14,7 +14,7 @@ syn keyword CocciKeywords       statement function local list fresh position ide
 syn keyword CocciKeywords       declaration declarer attribute symbol format assignment contained
 syn keyword CocciKeywords       operator global field initializer initialiser iterator name contained
 
-syn region CocciGroup matchgroup=CocciGroupDelim start="^@[^@:]*@" end="@@" contains=CocciKeywords
+syn region CocciGroup matchgroup=CocciGroupDelim start="^@[^@:]*@" end="@@" contains=CocciKeywords,CocciComment
 
 syn match CocciLineRemoved      "^-.*"
 syn match CocciLineAdded        "^+.*"
