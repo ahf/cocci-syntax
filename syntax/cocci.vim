@@ -18,10 +18,13 @@ syn region CocciGroup matchgroup=CocciGroupDelim start="^@[^@:]*@" end="@@" cont
 
 syn match CocciInlineScript     "script\s*:\s*\(python\|ocaml\)\s*([^)]*)\s*{[^}]*}" contained
 
-syn match CocciLineRemoved      "^-.*"
-syn match CocciLineAdded        "^+.*"
+syn region CocciLineRemoved start="^-"  end="$" keepend contains=CocciOperator,CocciPosition
+syn region CocciLineAdded   start="^+"  end="$" keepend contains=CocciOperator,CocciPosition
+syn region CocciLinePinned  start="^\*" end="$" keepend contains=CocciOperator,CocciPosition
+
 syn match CocciComment          "//.*"
 
+syn match CocciPosition         "\%(^\)\@!@[_a-zA-Z][_a-zA-Z0-9]*"
 syn match CocciOperator         "\.\.\."
 syn match CocciOperator         "<\.\.\."
 syn match CocciOperator         "\.\.\.>"
@@ -36,8 +39,10 @@ syn case match
 syn match CocciError            "^[ \t][+-].*"
 
 " Highlight!
+hi def link CocciPosition       Directory
 hi def link CocciLineRemoved    Special
 hi def link CocciLineAdded      Identifier
+hi def link CocciLinePinned     NonText
 hi def link CocciError          Error
 hi def link CocciKeywords       Type
 hi def link CocciGroupDelim     PreProc
