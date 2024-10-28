@@ -14,14 +14,14 @@ syn include @OCamlSyntax syntax/ocaml.vim
 
 syn region CocciPythonBlock matchgroup=CocciCodeBlock
     \ start=+^@\s*\(script\|initialize\|finalize\)\s*:\s*python\s*[^@]*@\(\n.*<<.*\)*\_s*@@+
-    \ skip=+^$+
-    \ end=+^\([^@/]\)\@!+
-    \ contains=@PythonSyntax
+    \ skip=+^$\|^\s*//.*$+
+    \ end=+^\([^@]\)\@!+
+    \ contains=@PythonSyntax,CocciComment
 syn region CocciOCamlBlock matchgroup=CocciCodeBlock
     \ start=+@\s*\(script\|initialize\|finalize\)\s*:\s*ocaml\s*[^@]*@\(\n.*<<.*\)*\_s*@@+
-    \ skip=+^$+
-    \ end=+^\(\s*[^@/]\)\@!+
-    \ contains=@OCamlSyntax
+    \ skip=+^$\|^\s*//.*$+
+    \ end=+^\(\s*[^@]\)\@!+
+    \ contains=@OCamlSyntax,CocciComment
 
 " Keywords
 syn keyword CocciKeywords       identifier type typedef parameter constant expression contained
@@ -40,6 +40,7 @@ syn region CocciLineAdded   start="^+"  end="$" keepend contains=CocciOperator,C
 syn region CocciLinePinned  start="^\*" end="$" keepend contains=CocciOperator,CocciPosition
 
 syn match CocciComment          "//.*"
+syn region CocciComment         start="/\*" end="\*/" extend
 
 syn match CocciPosition         "\%(^\)\@!@[_a-zA-Z][_a-zA-Z0-9]*"
 syn match CocciOperator         "\.\.\."
