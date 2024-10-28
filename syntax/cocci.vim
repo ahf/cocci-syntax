@@ -24,10 +24,12 @@ syn region CocciOCamlBlock matchgroup=CocciCodeBlock
     \ contains=@OCamlSyntax
 
 " Keywords
-syn keyword CocciKeywords       identifier type parameter constant expression contained
+syn keyword CocciKeywords       identifier type typedef parameter constant expression contained
 syn keyword CocciKeywords       statement function local list fresh position idexpression contained
 syn keyword CocciKeywords       declaration declarer attribute symbol format assignment contained
 syn keyword CocciKeywords       operator global field initializer initialiser iterator name contained
+syn keyword CocciKeywords       metavariable enum union struct binary unary const volatile ptrdiff_t contained
+syn keyword CocciKeywords       signed unsigned void char short int long float double complex size_t ssize_t contained
 
 syn region CocciGroup matchgroup=CocciGroupDelim start="^@[^@:]*@" end="@@" contains=CocciKeywords,CocciComment,CocciInlineScript
 
