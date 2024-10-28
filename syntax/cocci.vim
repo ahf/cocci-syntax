@@ -33,7 +33,7 @@ syn match CocciError            "^[ \t][+-].*"
 hi def link CocciLineRemoved    Special
 hi def link CocciLineAdded      Identifier
 hi def link CocciError          Error
-hi def link CocciKeywords       Keyword
+hi def link CocciKeywords       Type
 hi def link CocciGroupDelim     PreProc
 hi def link CocciComment        Comment
 hi def link CocciOperator       Operator
