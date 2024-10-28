@@ -8,20 +8,44 @@ if &compatible || v:version < 603 || exists("b:current_syntax")
     finish
 endif
 
+" Highlighting python and ocaml blocks
+syn include @PythonSyntax syntax/python.vim
+syn include @OCamlSyntax syntax/ocaml.vim
+
+syn region CocciPythonBlock matchgroup=CocciCodeBlock
+    \ start=+^@\s*\(script\|initialize\|finalize\)\s*:\s*python\s*[^@]*@\(\n.*<<.*\)*\_s*@@+
+    \ skip=+^$+
+    \ end=+^\([^@/]\)\@!+
+    \ contains=@PythonSyntax
+syn region CocciOCamlBlock matchgroup=CocciCodeBlock
+    \ start=+@\s*\(script\|initialize\|finalize\)\s*:\s*ocaml\s*[^@]*@\(\n.*<<.*\)*\_s*@@+
+    \ skip=+^$+
+    \ end=+^\(\s*[^@/]\)\@!+
+    \ contains=@OCamlSyntax
+
 " Keywords
 syn keyword CocciKeywords       identifier type parameter constant expression contained
 syn keyword CocciKeywords       statement function local list fresh position idexpression contained
 syn keyword CocciKeywords       declaration declarer attribute symbol format assignment contained
 syn keyword CocciKeywords       operator global field initializer initialiser iterator name contained
 
-syn region CocciGroup matchgroup=CocciGroupDelim start="@[^@]*@" end="@@" contains=CocciKeywords
+syn region CocciGroup matchgroup=CocciGroupDelim start="^@[^@:]*@" end="@@" contains=CocciKeywords,CocciComment,CocciInlineScript
 
-syn match CocciLineRemoved      "^-.*"
-syn match CocciLineAdded        "^+.*"
+syn match CocciInlineScript     "script\s*:\s*\(python\|ocaml\)\s*([^)]*)\s*{[^}]*}" contained
+
+syn region CocciLineRemoved start="^-"  end="$" keepend contains=CocciOperator,CocciPosition
+syn region CocciLineAdded   start="^+"  end="$" keepend contains=CocciOperator,CocciPosition
+syn region CocciLinePinned  start="^\*" end="$" keepend contains=CocciOperator,CocciPosition
+
 syn match CocciComment          "//.*"
 
-syn case ignore
+syn match CocciPosition         "\%(^\)\@!@[_a-zA-Z][_a-zA-Z0-9]*"
 syn match CocciOperator         "\.\.\."
+syn match CocciOperator         "<\.\.\."
+syn match CocciOperator         "\.\.\.>"
+syn match CocciOperator         "<+\.\.\."
+syn match CocciOperator         "\.\.\.+>"
+syn case ignore
 syn match CocciOperator         "when"
 syn match CocciOperator         "any"
 syn case match
@@ -30,13 +54,17 @@ syn case match
 syn match CocciError            "^[ \t][+-].*"
 
 " Highlight!
+hi def link CocciPosition       Directory
 hi def link CocciLineRemoved    Special
 hi def link CocciLineAdded      Identifier
+hi def link CocciLinePinned     NonText
 hi def link CocciError          Error
-hi def link CocciKeywords       Keyword
+hi def link CocciKeywords       Type
 hi def link CocciGroupDelim     PreProc
 hi def link CocciComment        Comment
 hi def link CocciOperator       Operator
+hi def link CocciInlineScript   Special
+hi def link CocciCodeBlock      PreProc
 
 let b:current_syntax = "cocci"
 
