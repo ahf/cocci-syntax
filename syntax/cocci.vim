@@ -8,6 +8,21 @@ if &compatible || v:version < 603 || exists("b:current_syntax")
     finish
 endif
 
+" Highlighting python and ocaml blocks
+syn include @PythonSyntax syntax/python.vim
+syn include @OCamlSyntax syntax/ocaml.vim
+
+syn region CocciPythonBlock matchgroup=CocciCodeBlock
+    \ start=+^@\s*\(script\|initialize\|finalize\)\s*:\s*python\s*[^@]*@\(\n.*<<.*\)*\_s*@@+
+    \ skip=+^$+
+    \ end=+^\([^@/]\)\@!+
+    \ contains=@PythonSyntax
+syn region CocciOCamlBlock matchgroup=CocciCodeBlock
+    \ start=+@\s*\(script\|initialize\|finalize\)\s*:\s*ocaml\s*[^@]*@\(\n.*<<.*\)*\_s*@@+
+    \ skip=+^$+
+    \ end=+^\(\s*[^@/]\)\@!+
+    \ contains=@OCamlSyntax
+
 " Keywords
 syn keyword CocciKeywords       identifier type parameter constant expression contained
 syn keyword CocciKeywords       statement function local list fresh position idexpression contained
@@ -49,6 +64,7 @@ hi def link CocciGroupDelim     PreProc
 hi def link CocciComment        Comment
 hi def link CocciOperator       Operator
 hi def link CocciInlineScript   Special
+hi def link CocciCodeBlock      PreProc
 
 let b:current_syntax = "cocci"
 
