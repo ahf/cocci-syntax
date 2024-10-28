@@ -20,8 +20,12 @@ syn match CocciLineRemoved      "^-.*"
 syn match CocciLineAdded        "^+.*"
 syn match CocciComment          "//.*"
 
-syn case ignore
 syn match CocciOperator         "\.\.\."
+syn match CocciOperator         "<\.\.\."
+syn match CocciOperator         "\.\.\.>"
+syn match CocciOperator         "<+\.\.\."
+syn match CocciOperator         "\.\.\.+>"
+syn case ignore
 syn match CocciOperator         "when"
 syn match CocciOperator         "any"
 syn case match
