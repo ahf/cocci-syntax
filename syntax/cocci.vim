@@ -52,6 +52,8 @@ syn case ignore
 syn match CocciOperator         "when"
 syn match CocciOperator         "any"
 syn case match
+syn match CocciPreProc          "^\s*#.*$" " preprocessor lines (only single ones currently)
+syn match CocciSheBangLine      "^\s*#\s*spatch\(\s.*\)*$" " constraint of occurrence on file first lines is missing
 
 " Errors
 syn match CocciError            "^[ \t][+-].*"
@@ -65,6 +67,8 @@ hi def link CocciError          Error
 hi def link CocciKeywords       Type
 hi def link CocciGroupDelim     PreProc
 hi def link CocciComment        Comment
+hi def link CocciSheBangLine    Comment
+hi def link CocciPreProc        PreProc
 hi def link CocciOperator       Operator
 hi def link CocciInlineScript   Special
 hi def link CocciCodeBlock      PreProc
